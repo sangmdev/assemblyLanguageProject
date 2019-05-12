@@ -1,0 +1,49 @@
+READ X
+
+LOOP1: LOAD X
+       BRZERO OUT1
+       BR LOOP7DIV
+LOOP7DIV:SUB 7 
+       BRZERO LOOP1A      //Divisible by 7
+       BRNEG LOOPREDO    //Not divisible by 7
+       BR LOOP7DIV
+LOOPREDO: LOAD X 
+          BR LOOP13DIV
+LOOP13DIV:SUB 13
+       BRZERO LOOP1A 
+       BRNEG LOOP1B 
+       BR LOOP13DIV
+LOOP1A:LOAD X
+       PUSH
+       STACKW 0
+       LOAD Y 
+       ADD 1 
+       STORE Y
+       READ X 
+       BR LOOP1
+LOOP1B:READ X 
+       BR LOOP1
+OUT1: NOOP
+      COPY COUNT Y
+LOOP2:STACKR 0
+      STORE X
+      ADD SUM
+      STORE SUM
+      WRITE X
+      POP
+      LOAD Y 
+      SUB 1 
+      STORE Y
+      BRZERO OUT2
+      BR LOOP2
+OUT2: NOOP
+      LOAD SUM
+      WRITE SUM        //DISPLAY SUM of numbers divisible by 7 OR 13
+      LOAD COUNT
+      WRITE COUNT      //DISPLAY COUNT of numbers divisible by 7 OR 13
+STOP
+X 0
+Y 0
+COUNT 0
+SUM 0
+Z 0
